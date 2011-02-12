@@ -1,17 +1,17 @@
 import logging
 
-from django.utils.thread_support import currentThread
+from threading import local
 
 
-_requests = {}
+_requests = local()
 
 
 def get_remote_addr():
-    return _requests.get(currentThread())
+    return getattr(_requests, 'value')
 
 
 def set_remote_addr(addr):
-    _requests[currentThread()] = addr
+    _requests.value = addr
 
 
 class ThreadRequestMiddleware(object):

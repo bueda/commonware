@@ -7,7 +7,7 @@ _requests = local()
 
 
 def get_remote_addr():
-    return getattr(_requests, 'value')
+    return getattr(_requests, 'value', None)
 
 
 def set_remote_addr(addr):
